@@ -9,7 +9,7 @@
 // @todo: Вывести карточки на страницу
 
 function createCardElement(data, onDelete) {
-    const cardElement = document.getElementById('card-template').cloneNode(true);
+    const cardElement = document.getElementById('#card-template').cloneNode(true);
     cardElement.querySelector('.title').textContent = data.title;
     cardElement.querySelector('.description').textContent = data.description;
     cardElement.querySelector('.delete-icon').addEventListener('click', function() {
