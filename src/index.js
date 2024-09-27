@@ -10,9 +10,6 @@ import {
   openModal,
   closeModal,
   closeOnOverlay,
-  popupImage,
-  img,
-  imgTitle,
 } from "./scripts/modal.js";
 
 function renderCard(arr) {
