@@ -12,17 +12,14 @@ export function createCard(data, handleLike, removeCard) {
   cardImage.src = data.link;
   cardImage.alt = data.alt;
 
-  // Обработчик для лайка
   likeButton.addEventListener("click", () => {
     handleLike(likeButton);
   });
 
-  // Обработчик для удаления карточки
   deleteButton.addEventListener("click", () => {
     removeCard(cardElement);
   });
 
-  // Обработчик для открытия попапа с изображением
   cardImage.addEventListener("click", () => {
     img.setAttribute("src", cardImage.src);
     imgTitle.textContent = cardTitle.textContent;

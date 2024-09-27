@@ -15,7 +15,6 @@ import {
   imgTitle,
 } from "./scripts/modal.js";
 
-// Функция для рендеринга карточек
 function renderCard(arr) {
   arr.forEach(function (cardData) {
     const card = createCard(cardData, handleLike, removeCard);
@@ -23,10 +22,8 @@ function renderCard(arr) {
   });
 }
 
-// Инициализация карточек
 renderCard(initialCards);
 
-// Обработчики попапов
 const editButton = document.querySelector(".profile__edit-button");
 const popupEdit = document.querySelector(".popup_type_edit");
 
@@ -38,17 +35,14 @@ const popupCloseButtons = document.querySelectorAll(".popup__close");
 editButton.addEventListener("click", () => openModal(popupEdit));
 addButton.addEventListener("click", () => openModal(popupNewCard));
 
-// Закрытие попапов
 popupCloseButtons.forEach((button) => {
   button.addEventListener("click", (evt) => closeModal(evt.target.closest(".popup")));
 });
 
-// Закрытие попапа при клике на оверлей
 [popupEdit, popupNewCard].forEach((popup) => {
   popup.addEventListener("click", closeOnOverlay);
 });
 
-// Обработчик формы редактирования профиля
 const formElement = popupEdit.querySelector(".popup__form");
 const nameInput = popupEdit.querySelector(".popup__input_type_name");
 const jobInput = popupEdit.querySelector(".popup__input_type_description");
@@ -56,7 +50,6 @@ const jobInput = popupEdit.querySelector(".popup__input_type_description");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 
-// Автозаполнение полей карточки
 nameInput.value = profileTitle.textContent;
 jobInput.value = profileDescription.textContent;
 
@@ -69,7 +62,6 @@ function handleFormSubmit(evt) {
 
 formElement.addEventListener("submit", handleFormSubmit);
 
-// Обработчик формы добавления новой карточки
 const formNewCard = popupNewCard.querySelector(".popup__form");
 const newCardNameInput = popupNewCard.querySelector(".popup__input_type_card-name");
 const newCardUrlInput = popupNewCard.querySelector(".popup__input_type_url");
@@ -87,7 +79,6 @@ function handleNewCardSubmit(evt) {
   addCardToPlacesList(card);
   closeModal(popupNewCard);
 
-  // Сброс значений полей формы
   newCardNameInput.value = '';
   newCardUrlInput.value = '';
 }

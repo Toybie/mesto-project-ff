@@ -1,40 +1,40 @@
 const popups = document.querySelectorAll('.popup');
 
-// Открытие попапа
 export function openModal(popup) {
-    popup.style.display = 'flex'; 
-    setTimeout(() => {
-        popup.style.visibility = 'visible'; 
-        popup.style.opacity = '1';
-    }, 10);
+    popup.classList.add('popup_is-opened');
+    
+    popup.style.display = 'flex';
+    popup.style.opacity = '0';
+    popup.style.visibility = 'visible';
 
-    // Добавляем обработчики событий
+    requestAnimationFrame(() => {
+        popup.style.transition = 'opacity 0.6s';
+        popup.style.opacity = '1';
+    });
+
     document.addEventListener('keydown', handleEscClose);
-    popup.addEventListener('click', closeOnOverlay);
+    popup.addEventListener('click', closeOnOverlay); 
 }
 
-// Закрытие попапа
 export function closeModal(popup) {
     popup.style.opacity = '0';
 
     setTimeout(() => {
-        popup.style.visibility = 'hidden'; 
+        popup.style.visibility = 'hidden';
         popup.style.display = 'none';
+        popup.classList.remove('popup_is-opened');
     }, 600);
 
-    // Убираем обработчики событий
-    document.removeEventListener('keydown', handleEscClose);
-    popup.removeEventListener('click', closeOnOverlay);
+    document.removeEventListener('keydown', handleEscClose); 
+    popup.removeEventListener('click', closeOnOverlay); 
 }
 
-// Закрытие попапа при клике на оверлей
 export function closeOnOverlay(evt) {
     if (evt.target === evt.currentTarget) {
         closeModal(evt.target);
     }
 }
 
-// Закрытие попапа по клавише Esc
 function handleEscClose(evt) {
     if (evt.key === 'Escape') {
         const openedPopup = document.querySelector('.popup_is-opened');
@@ -44,7 +44,6 @@ function handleEscClose(evt) {
     }
 }
 
-// Элементы попапа с изображением
 export const popupImage = document.querySelector('.popup_type_image');
 export const img = popupImage.querySelector('.popup__image');
 export const imgTitle = popupImage.querySelector('.popup__caption');
