@@ -1,46 +1,46 @@
-// card.js
-import { showImage } from './modal.js';
+import { openModal, img, imgTitle, popupImage } from './modal.js';
 
-const placesList = document.querySelector('.places__list');
+export function createCard(data, handleLike, removeCard) {
+  const cardTemplate = document.querySelector("#card-template").content;
+  const cardElement = cardTemplate.querySelector(".places__item").cloneNode(true);
+  const cardImage = cardElement.querySelector(".card__image");
+  const cardTitle = cardElement.querySelector(".card__title");
+  const likeButton = cardElement.querySelector(".card__like-button");
+  const deleteButton = cardElement.querySelector(".card__delete-button");
 
-// Создание элемента карточки
-export function createCardElement(cardData, removeCard) {
-  const cardTemplate = document.querySelector('#card-template').content.querySelector('.places__item');
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector('.card__image');
-  const cardTitle = cardElement.querySelector('.card__title');
-  const likeButton = cardElement.querySelector('.card__like-button');
-
-  // Установка данных карточки
-  cardImage.src = cardData.link;
-  cardImage.alt = cardData.alt;
-  cardTitle.textContent = cardData.name;
+  cardTitle.textContent = data.name;
+  cardImage.src = data.link;
+  cardImage.alt = data.alt;
 
   // Обработчик для лайка
-  likeButton.addEventListener('click', () => {
-    likeButton.classList.toggle('card__like-button_active');
+  likeButton.addEventListener("click", () => {
+    handleLike(likeButton);
   });
 
   // Обработчик для удаления карточки
-  const deleteButton = cardElement.querySelector('.card__delete-button');
-  deleteButton.addEventListener('click', () => {
+  deleteButton.addEventListener("click", () => {
     removeCard(cardElement);
   });
 
-  // Обработчик для открытия изображения в попапе
-  cardImage.addEventListener('click', () => {
-    showImage(cardData.link, cardData.name);
+  // Обработчик для открытия попапа с изображением
+  cardImage.addEventListener("click", () => {
+    img.setAttribute("src", cardImage.src);
+    imgTitle.textContent = cardTitle.textContent;
+    openModal(popupImage);
   });
 
   return cardElement;
 }
 
-// Функция добавления карточки в список
-export function addCardToPlacesList(cardElement) {
-  placesList.append(cardElement);
+export function addCardToPlacesList(card) {
+  const placesList = document.querySelector(".places__list");
+  placesList.prepend(card);
 }
 
-// Функция удаления карточки
+export function handleLike(button) {
+  button.classList.toggle("card__like-button_is-active");
+}
+
 export function removeCard(cardElement) {
   cardElement.remove();
 }

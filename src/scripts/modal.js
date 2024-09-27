@@ -1,49 +1,50 @@
-// modal.js
+const popups = document.querySelectorAll('.popup');
 
-export const popupImage = document.querySelector(".popup_type_image");
+// Открытие попапа
+export function openModal(popup) {
+    popup.style.display = 'flex'; 
+    setTimeout(() => {
+        popup.style.visibility = 'visible'; 
+        popup.style.opacity = '1';
+    }, 10);
 
-const popupModal = document.querySelectorAll(".popup");
-
-export function openModal(popupName) {
-  popupName.classList.add("popup_is-opened");
-  window.addEventListener("keydown", popupEscClose);
+    // Добавляем обработчики событий
+    document.addEventListener('keydown', handleEscClose);
+    popup.addEventListener('click', closeOnOverlay);
 }
 
-export function closeModal(popupName) {
-  popupName.classList.remove("popup_is-opened");
-  window.removeEventListener("keydown", popupEscClose);
+// Закрытие попапа
+export function closeModal(popup) {
+    popup.style.opacity = '0';
+
+    setTimeout(() => {
+        popup.style.visibility = 'hidden'; 
+        popup.style.display = 'none';
+    }, 600);
+
+    // Убираем обработчики событий
+    document.removeEventListener('keydown', handleEscClose);
+    popup.removeEventListener('click', closeOnOverlay);
 }
 
-export function closeModalOver(evt) {
-  if (evt.target.classList.contains("popup")) {
-    closeModal(evt.target);
-  }
-}
-
-export function popupCrossClose(item) {
-  item.addEventListener("click", function () {
-    closeModal(item.closest('.popup'));
-  });
-}
-
-export function closeOnOverlay(popup) {
-  popup.addEventListener("click", closeModalOver);
-}
-
-export function popupEscClose(evt) {
-  if (evt.key === "Escape") {
-    const modalIsOpen = document.querySelector(".popup_is-opened");
-    if (modalIsOpen) {
-      closeModal(modalIsOpen);
+// Закрытие попапа при клике на оверлей
+export function closeOnOverlay(evt) {
+    if (evt.target === evt.currentTarget) {
+        closeModal(evt.target);
     }
-  }
 }
 
-export const img = document.querySelector(".popup__image");
-export const imgTitle = document.querySelector(".popup__caption");
-
-export function showImage(src, alt) {
-  img.setAttribute("src", src);
-  imgTitle.textContent = alt;
-  openModal(popupImage);
+// Закрытие попапа по клавише Esc
+function handleEscClose(evt) {
+    if (evt.key === 'Escape') {
+        const openedPopup = document.querySelector('.popup_is-opened');
+        if (openedPopup) {
+            closeModal(openedPopup);
+        }
+    }
 }
+
+// Элементы попапа с изображением
+export const popupImage = document.querySelector('.popup_type_image');
+export const img = popupImage.querySelector('.popup__image');
+export const imgTitle = popupImage.querySelector('.popup__caption');
