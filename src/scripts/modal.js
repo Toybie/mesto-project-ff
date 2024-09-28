@@ -12,6 +12,7 @@ export function closeModal(popup) {
     popup.classList.remove("popup_is-opened");
     popup.classList.remove("popup_is-animated");
 }
+
 function handleEscClose(evt) {
     if (evt.key === 'Escape') {
         const openPopup = document.querySelector('.popup_is-opened');
