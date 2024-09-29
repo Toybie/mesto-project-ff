@@ -15,11 +15,10 @@ export function closeModal(popup) {
     popup.removeEventListener('click', closeOnOverlay);
 }
 
-// Новая функция для закрытия ближайшего попапа
 export function hideClosestPopup(evt) {
-    const closestPopup = evt.target.closest('.popup');  // Найти ближайший попап
+    const closestPopup = evt.target.closest('.popup');
     if (closestPopup) {
-        closeModal(closestPopup);  // Закрыть найденный попап
+        closeModal(closestPopup);
     }
 }
 

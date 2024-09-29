@@ -24,7 +24,7 @@ export function createCard(data, handleLike, removeCard, handleImageClick) {
         handleImageClick(cardImage, cardTitle);
     });
 
-    return cardElement; // Возвращаем готовый элемент карточки
+    return cardElement;
 }
 
 export function handleLike(button) {

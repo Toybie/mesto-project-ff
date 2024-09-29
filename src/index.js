@@ -1,7 +1,7 @@
 import "./pages/index.css"; 
 import { initialCards } from "./scripts/cards.js"; 
 import { createCard, removeCard, handleLike } from "./scripts/card.js";  
-import { openModal, closeModal, hideClosestPopup } from "./scripts/modal.js"; // Импорт hideClosestPopup
+import { openModal, closeModal, hideClosestPopup } from "./scripts/modal.js";
 
 const popupImage = document.querySelector('.popup_type_image'); 
 const img = popupImage.querySelector('.popup__image'); 
@@ -29,7 +29,6 @@ const placesList = document.querySelector(".places__list");
 editButton.addEventListener("click", openEditProfileModal); 
 addButton.addEventListener("click", () => openModal(popupNewCard)); 
 
-// Обновление обработчика на кнопки закрытия, теперь вызываем hideClosestPopup
 popupCloseButtons.forEach(button => button.addEventListener("click", hideClosestPopup));
 
 profileForm.addEventListener("submit", handleProfileFormSubmit); 
