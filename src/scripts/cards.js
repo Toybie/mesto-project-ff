@@ -1,32 +1,32 @@
 export const initialCards = [
   {
       name: "PanterA",
-      link: "https://darkermagazine.ru/uploads/review/music/pantera02.jpg",
+      link: "https://i.pinimg.com/originals/c8/36/66/c836664dfd2c6386992b3073862082c1.gif",
       alt: "PanterA"
   },
   {
       name: "Slayer",
-      link: "https://www.castlerock.ru/upload/medialibrary/a81/1foe8jcnd7brm9z7adwkanlo766veyiq.jpg",
+      link: "https://i.pinimg.com/originals/e2/e2/59/e2e259d47792690c7037da26373113ec.gif",
       alt: "Slayer"
   },
   {
       name: "MetallicA",
-      link: "https://img.belta.by/images/storage/news/with_archive/2021/000029_1631271329_459248_big.jpg",
+      link: "https://j.gifs.com/KdpM0e.gif",
       alt: "MetallicA"
   },
   {
       name: "Vader",
-      link: "https://rollingstoneindia.com/wp-content/uploads/2016/07/Vader2014-web-photo-by-kobaru.pl_.jpg",
+      link: "https://media.tenor.com/QO_H5G58Mh8AAAAM/head-bang-death-metal.gif",
       alt: "Vader"
   },
   {
       name: "Motorhead",
-      link: "https://bnmusic.ru/wp-content/uploads/2020/10/Motorhead.jpg",
+      link: "https://www.pixbear.com/wp-content/uploads/2019/05/lemmy_kilmister_cool.gif",
       alt: "Motorhead"
   },
   {
-      name: "Заточка",
-      link: "https://myrockshows.com/media/cache/b0/74/b074c5d5f6ab8f1fb74c3aaecc3456ec.jpg",
-      alt: "Заточка"
+      name: "Dethklok",
+      link: "https://i.redd.it/dpj2tx4u4b811.gif",
+      alt: "Dethklok"
   }
 ];

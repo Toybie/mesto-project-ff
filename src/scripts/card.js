@@ -1,4 +1,4 @@
-import { openModal, img, imgTitle, popupImage } from './modal.js';
+import { openModal } from './modal.js';
 
 export function createCard(data, handleLike, removeCard, handleImageClick) {
     const cardTemplate = document.querySelector("#card-template").content;
@@ -24,12 +24,7 @@ export function createCard(data, handleLike, removeCard, handleImageClick) {
         handleImageClick(cardImage, cardTitle);
     });
 
-    return cardElement;
-}
-
-export function addCardToPlacesList(card) {
-    const placesList = document.querySelector(".places__list");
-    placesList.prepend(card);
+    return cardElement; // Возвращаем готовый элемент карточки
 }
 
 export function handleLike(button) {
