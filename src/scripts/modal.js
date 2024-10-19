@@ -11,6 +11,15 @@ export function openModal(popup) {
 export function closeModal(popup) {
     popup.classList.remove("popup_is-opened");
     popup.classList.remove("popup_is-animated");
+    document.removeEventListener('keydown', handleEscClose);
+    popup.removeEventListener('click', closeOnOverlay);
+}
+
+export function hideClosestPopup(evt) {
+    const closestPopup = evt.target.closest('.popup');
+    if (closestPopup) {
+        closeModal(closestPopup);
+    }
 }
 
 function handleEscClose(evt) {
