@@ -21,3 +21,11 @@
   right: 0;
   z-index: 10;
 }
+
+.popup__error_visible {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14.52px;
+  color: red;
+  margin-top: 4px;
+}

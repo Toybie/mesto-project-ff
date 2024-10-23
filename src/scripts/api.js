@@ -54,15 +54,23 @@ export function removeCard(cardId) {
     }).then(checkResponse);
 }
 
-export function updateAvatar(avatar) {
-    return fetch(`${config.baseUrl}/users/me/avatar`, {
+export function updateAvatar(data) {
+    return fetch('https://nomoreparties.co/v1/cohortId/users/me/avatar', {
         method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify({
-            avatar: avatar
-        })
-    }).then(checkResponse);
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `a58ea39d-b3b1-43aa-92f9-4914b0eb621d`
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            return Promise.reject(`Ошибка: ${response.status}`);
+        }
+        return response.json();
+    });
 }
+
 
 export function likeCard(cardId) {
     return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {

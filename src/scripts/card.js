@@ -15,15 +15,15 @@ export function createCard(data, handleLike, handleImageClick, userId) {
 
     if (data.owner._id !== userId) {
         deleteButton.style.display = "none";
-    } else {
-        deleteButton.addEventListener("click", () => {
-            deleteCard(data._id, cardElement);
-        });
     }
 
     likeButton.addEventListener("click", () => {
         handleLike(data, likeButton, likeCount);
     });
+
+    deleteButton.addEventListener("click", () => {
+        removeCard(data._id, cardElement);
+    });    
 
     cardImage.addEventListener("click", () => {
         handleImageClick(data);
@@ -32,7 +32,9 @@ export function createCard(data, handleLike, handleImageClick, userId) {
     return cardElement;
 }
 
-function deleteCard(cardId, cardElement) {
+
+
+export function removeCard(cardId, cardElement) {
     fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-24/cards/${cardId}`, {
         method: 'DELETE',
         headers: {
@@ -50,6 +52,8 @@ function deleteCard(cardId, cardElement) {
         console.error('Ошибка при удалении карточки:', err);
     });
 }
+
+
 
 export function handleLike(cardData, button, likeCount) {
     const isLiked = button.classList.toggle("card__like-button_is-active");
