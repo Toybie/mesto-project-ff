@@ -23,15 +23,14 @@ export function createCard(data, handleLike, handleImageClick, userId) {
 
     deleteButton.addEventListener("click", () => {
         removeCard(data._id, cardElement);
-    });    
+    });
 
     cardImage.addEventListener("click", () => {
-        handleImageClick(data);
+        handleImageClick(cardImage, cardTitle);
     });
 
     return cardElement;
 }
-
 
 
 export function removeCard(cardId, cardElement) {
@@ -53,8 +52,6 @@ export function removeCard(cardId, cardElement) {
     });
 }
 
-
-
 export function handleLike(cardData, button, likeCount) {
     const isLiked = button.classList.toggle("card__like-button_is-active");
     const method = isLiked ? 'PUT' : 'DELETE';
@@ -73,4 +70,13 @@ export function handleLike(cardData, button, likeCount) {
     .catch(err => {
         console.error('Ошибка при обновлении лайков:', err);
     });
+}
+
+function handleImageClick(cardImage, cardTitle) {
+    img.setAttribute("src", cardImage.src);
+    img.setAttribute("alt", cardTitle.textContent);
+
+    imgTitle.textContent = cardTitle.textContent;
+
+    openModal(popupImage); 
 }
