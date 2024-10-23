@@ -2,7 +2,7 @@ import "./pages/index.css";
 import { createCard, removeCard, handleLike } from "./scripts/card.js";  
 import { openModal, closeModal, hideClosestPopup } from "./scripts/modal.js";
 import { enableValidation, clearValidation } from './scripts/validation.js';
-import { getUserInfo, getCards, updateUserInfo, addCard, updateAvatar } from './scripts/api.js'; // Добавьте updateAvatar
+import { getUserInfo, getCards, updateUserInfo, addCard, updateAvatar } from './scripts/api.js';
 
 const popupImage = document.querySelector('.popup_type_image'); 
 const img = popupImage.querySelector('.popup__image'); 
@@ -12,11 +12,11 @@ const editButton = document.querySelector(".profile__edit-button");
 const popupEdit = document.querySelector(".popup_type_edit"); 
 const addButton = document.querySelector(".profile__add-button"); 
 const popupNewCard = document.querySelector(".popup_type_new-card"); 
-const avatarButton = document.querySelector(".profile__image"); // Элемент для клика по аватару
+const avatarButton = document.querySelector(".profile__image");
 
-const popupAvatar = document.querySelector(".popup_type_avatar"); // Новый попап для аватара
-const avatarForm = popupAvatar.querySelector(".popup__form"); // Форма для смены аватара
-const avatarInput = popupAvatar.querySelector(".popup__input_type_avatar"); // Поле ввода для ссылки на аватар
+const popupAvatar = document.querySelector(".popup_type_avatar");
+const avatarForm = popupAvatar.querySelector(".popup__form");
+const avatarInput = popupAvatar.querySelector(".popup__input_type_avatar");
 
 const popupCloseButtons = document.querySelectorAll(".popup__close"); 
 
