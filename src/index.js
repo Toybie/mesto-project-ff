@@ -134,7 +134,7 @@ function renderUserInfo(data) {
 
 Promise.all([getUserInfo(), getCards()])
     .then(([userData, cardsData]) => {
-        const userId = userData._id; // Получаем ID текущего пользователя
+        const userId = userData._id;
         renderUserInfo(userData);
         renderCards(cardsData, userId);
     })

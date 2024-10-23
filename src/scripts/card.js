@@ -13,11 +13,9 @@ export function createCard(data, handleLike, handleImageClick, userId) {
 
     likeCount.textContent = data.likes.length;
 
-    // Показываем кнопку удаления только для своих карточек
     if (data.owner._id !== userId) {
-        deleteButton.style.display = "none"; // Скрываем кнопку удаления
+        deleteButton.style.display = "none";
     } else {
-        // Обработчик нажатия на кнопку удаления
         deleteButton.addEventListener("click", () => {
             deleteCard(data._id, cardElement);
         });
@@ -46,7 +44,7 @@ function deleteCard(cardId, cardElement) {
         if (!res.ok) {
             throw new Error(`Ошибка: ${res.status}`);
         }
-        cardElement.remove(); // Удаляем карточку из DOM
+        cardElement.remove();
     })
     .catch(err => {
         console.error('Ошибка при удалении карточки:', err);
