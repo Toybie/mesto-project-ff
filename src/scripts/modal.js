@@ -15,13 +15,6 @@ export function closeModal(popup) {
     popup.removeEventListener('click', closeOnOverlay);
 }
 
-export function hideClosestPopup(evt) {
-    const closestPopup = evt.target.closest('.popup');
-    if (closestPopup) {
-        closeModal(closestPopup);
-    }
-}
-
 function handleEscClose(evt) {
     if (evt.key === 'Escape') {
         const openPopup = document.querySelector('.popup_is-opened');
