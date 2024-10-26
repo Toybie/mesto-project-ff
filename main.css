@@ -759,6 +759,10 @@ template {
   opacity: 0.6;
 }
 
+.card__like-count {
+  margin-left: 4px;;
+
+}
 .card__like-button_is-active {
   background: transparent url(a7ffe37dcb927ba0c46c.svg) no-repeat;
 }
@@ -931,6 +935,19 @@ template {
     font-size: 14px;
     line-height: 17px;
   }
+}
+
+.popup__button_disabled {
+  background-color: #ffffff;
+  border: solid 2px rgba(0, 0, 0, 0.8);
+  color: rgba(0, 0, 0, 0.8);
+  cursor: not-allowed;
+  pointer-events: none; 
+  opacity: 0.5; 
+}
+
+.popup__button:hover:not(.popup__button_disabled) {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .popup__caption {
