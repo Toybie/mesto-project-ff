@@ -5,14 +5,17 @@ export function openModal(popup) {
     });
 
     document.addEventListener('keydown', handleEscClose);
-    popup.addEventListener('click', closeOnOverlay);
+    popup.addEventListener('mousedown', closeOnOverlay);
 }
 
 export function closeModal(popup) {
     popup.classList.remove("popup_is-opened");
-    popup.classList.remove("popup_is-animated");
+
+    setTimeout(() => {
+        popup.classList.remove("popup_is-animated");
+    }, 300);
     document.removeEventListener('keydown', handleEscClose);
-    popup.removeEventListener('click', closeOnOverlay);
+    popup.removeEventListener('mousedown', closeOnOverlay);
 }
 
 function handleEscClose(evt) {

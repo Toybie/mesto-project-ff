@@ -25,3 +25,16 @@
     line-height: 17px;
   }
 }
+
+.popup__button_disabled {
+  background-color: #ffffff;
+  border: solid 2px rgba(0, 0, 0, 0.8);
+  color: rgba(0, 0, 0, 0.8);
+  cursor: not-allowed;
+  pointer-events: none; 
+  opacity: 0.5; 
+}
+
+.popup__button:hover:not(.popup__button_disabled) {
+  background-color: rgba(0, 0, 0, 0.8);
+}

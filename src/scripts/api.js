@@ -47,41 +47,60 @@ export function addCard(name, link) {
     }).then(checkResponse);
 }
 
-export function removeCard(cardId) {
-    return fetch(`${config.baseUrl}/cards/${cardId}`, {
+export function deleteCardFromApi(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-24/cards/${cardId}`, {
         method: 'DELETE',
-        headers: config.headers
-    }).then(checkResponse);
-}
-
-export function updateAvatar(data) {
-    return fetch('https://nomoreparties.co/v1/cohortId/users/me/avatar', {
-        method: 'PATCH',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `a58ea39d-b3b1-43aa-92f9-4914b0eb621d`
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (!response.ok) {
-            return Promise.reject(`Ошибка: ${response.status}`);
+            authorization: 'a58ea39d-b3b1-43aa-92f9-4914b0eb621d',
+            'Content-Type': 'application/json'
         }
-        return response.json();
+    })
+    .then(res => {
+        if (!res.ok) {
+            return Promise.reject(`Ошибка: ${res.status}`);
+        }
+        return res.json();
     });
 }
 
-
-export function likeCard(cardId) {
-    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
-        method: 'PUT',
-        headers: config.headers
+export function updateAvatar(avatarUrl) {
+    return fetch(`${config.baseUrl}/users/me/avatar`, {
+        method: 'PATCH',
+        headers: config.headers,
+        body: JSON.stringify({
+            avatar: avatarUrl
+        })
     }).then(checkResponse);
 }
 
-export function dislikeCard(cardId) {
-    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+export function addLike(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-24/cards/likes/${cardId}`, {
+        method: 'PUT',
+        headers: {
+            authorization: 'a58ea39d-b3b1-43aa-92f9-4914b0eb621d',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error(`Ошибка: ${res.status}`);
+        }
+        return res.json();
+    });
+}
+
+export function removeLike(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/wff-cohort-24/cards/likes/${cardId}`, {
         method: 'DELETE',
-        headers: config.headers
-    }).then(checkResponse);
+        headers: {
+            authorization: 'a58ea39d-b3b1-43aa-92f9-4914b0eb621d',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error(`Ошибка: ${res.status}`);
+        }
+        return res.json();
+    });
 }
