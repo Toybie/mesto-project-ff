@@ -742,7 +742,6 @@ template {
   width: 21px;
   height: 18px;
   background: transparent url(df0c965524717a3fd8e9.svg) no-repeat;
-  
   background-size: 21px 18px;
   border: none;
   cursor: pointer;
@@ -759,9 +758,12 @@ template {
   opacity: 0.6;
 }
 
-.card__like-count {
-  margin-left: 4px;;
-
+.card__like-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;  
 }
 .card__like-button_is-active {
   background: transparent url(a7ffe37dcb927ba0c46c.svg) no-repeat;
@@ -898,6 +900,10 @@ template {
   margin-bottom: 10px;
 }
 
+.popup__input_invalid {
+  border-bottom: 1px solid red;
+}
+
 .popup__input:last-of-type {
   margin-bottom: 0;
 }
@@ -985,7 +991,7 @@ template {
   font-weight: 400;
   font-size: 12px;
   line-height: 14.52px;
-  color: red;
+  color: rgb(255, 0, 0);
   margin-top: 4px;
 }
 .popup_is-animated {
