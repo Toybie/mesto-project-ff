@@ -1,112 +1,73 @@
-function showError(input, message, settings) {
-    const existingError = input.parentNode.querySelector(`.${settings.errorClass}`);
-    if (existingError) {
-        existingError.remove();
+function showInputError(inputElement, validationConfig, formElement) {
+    const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
+    if (errorElement) {
+        inputElement.classList.add(validationConfig.inputErrorClass);
+        inputElement.classList.add(validationConfig.invalidInputClass);
+
+        if (inputElement.validity.valueMissing) {
+            errorElement.textContent = inputElement.validationMessage;
+        } else if (inputElement.validity.patternMismatch) {
+            errorElement.textContent = inputElement.dataset.errorMessage;
+        } else {
+            errorElement.textContent = inputElement.validationMessage;
+        }
+        errorElement.classList.add(validationConfig.errorClass);
     }
-
-    const errorElement = document.createElement('span');
-    errorElement.classList.add(settings.errorClass);
-    errorElement.style.color = 'red';
-    errorElement.textContent = message;
-    input.parentNode.insertBefore(errorElement, input.nextSibling);
-
-    input.style.borderBottom = '1px solid red';
 }
 
-function isValid(input, settings) {
-    const value = input.value.trim();
-    const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s-]+$/;
-    const urlRegex = /^(https?:\/\/)[\w.-]+(\.[\w.-]+)+[/\w.,@?^=%&:;~+#-]*$/;
-    let minLength, maxLength;
+function hideInputError(inputElement, validationConfig, formElement) {
+    const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
+    if (errorElement) {
+        inputElement.classList.remove(validationConfig.inputErrorClass);
+        inputElement.classList.remove(validationConfig.invalidInputClass);
+        errorElement.classList.remove(validationConfig.errorClass);
+        errorElement.textContent = ''; 
+    }
+}
 
-    if (input.classList.contains('popup__input_type_name')) {
-        minLength = 2;
-        maxLength = 40;
-    } else if (input.classList.contains('popup__input_type_description')) {
-        minLength = 2;
-        maxLength = 200;
-    } else if (input.classList.contains('popup__input_type_card-name')) {
-        minLength = 2;
-        maxLength = 30;
-    } else if (input.classList.contains('popup__input_type_url') || input.classList.contains('popup__input_type_avatar')) {
-        if (value.length === 0) {
-            showError(input, 'Это поле обязательно для заполнения', settings);
-            return false;
-        }
-        if (!urlRegex.test(value)) {
-            showError(input, 'Введите корректный URL', settings);
-            return false;
-        }
-        input.style.borderBottom = '1px solid rgba(0, 0, 0, 0.2)';
-        return true;
+function checkInputValidity(inputElement, validationConfig, formElement) {
+    if (!inputElement.validity.valid) {
+        showInputError(inputElement, validationConfig, formElement);
     } else {
-        return true;
-    }
-
-    if (value.length === 0) {
-        showError(input, 'Это поле обязательно для заполнения', settings);
-        return false;
-    }
-
-    if (value.length < minLength || value.length > maxLength) {
-        showError(input, `Длина должна быть от ${minLength} до ${maxLength} символов`, settings);
-        return false;
-    }
-
-    if (input.classList.contains('popup__input_type_name') || 
-        input.classList.contains('popup__input_type_description') || 
-        input.classList.contains('popup__input_type_card-name')) {
-        if (!nameRegex.test(value)) {
-            showError(input, 'Разрешены только латинские и кириллические буквы, знаки дефиса и пробелы', settings);
-            return false;
-        }
-    }
-
-    input.style.borderBottom = '1px solid rgba(0, 0, 0, 0.2)';
-    return true;
-}
-
-function validateForm(form, settings) {
-    const inputs = Array.from(form.querySelectorAll(settings.inputSelector));
-    let isFormValid = true;
-
-    clearValidation(form, settings);
-
-    inputs.forEach((input) => { 
-        if (!isValid(input, settings)) {
-            isFormValid = false;
-        }
-    });
-
-    const submitButton = form.querySelector(settings.submitButtonSelector);
-    submitButton.disabled = !isFormValid;
-
-    if (isFormValid) {
-        submitButton.classList.remove(settings.inactiveButtonClass);
-    } else {
-        submitButton.classList.add(settings.inactiveButtonClass);
+        hideInputError(inputElement, validationConfig, formElement);
     }
 }
 
-export function clearValidation(form, settings) {
-    const errorMessages = form.querySelectorAll(`.${settings.errorClass}`);
-    errorMessages.forEach(error => error.remove());
-
-    const inputs = Array.from(form.querySelectorAll(settings.inputSelector));
-    const submitButton = form.querySelector(settings.submitButtonSelector);
+function setEventListeners(formElement, validationConfig) {
+    const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
+    const buttonElement = formElement.querySelector(validationConfig.submitButtonSelector);
     
-    submitButton.disabled = true;
-    submitButton.classList.add(settings.inactiveButtonClass);
-}
+    toggleButtonState(inputList, buttonElement, validationConfig);
 
-export function enableValidation(settings) {
-    const forms = document.querySelectorAll(settings.formSelector);
-
-    forms.forEach((form) => {
-        form.addEventListener('input', () => validateForm(form, settings));
-        form.addEventListener('submit', (evt) => {
-            evt.preventDefault();
-            validateForm(form, settings);
+    inputList.forEach((inputElement) => {
+        inputElement.addEventListener('input', () => {
+            checkInputValidity(inputElement, validationConfig, formElement);
+            toggleButtonState(inputList, buttonElement, validationConfig);
         });
     });
+}
+
+function toggleButtonState(inputList, buttonElement, validationConfig) {
+    const hasInvalidInput = inputList.some((inputElement) => !inputElement.validity.valid);
+    buttonElement.disabled = hasInvalidInput;
+    buttonElement.classList.toggle(validationConfig.inactiveButtonClass, hasInvalidInput);
+}
+
+export function enableValidation(validationConfig) {
+    const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
+    formList.forEach((formElement) => {
+        setEventListeners(formElement, validationConfig);
+    });
+}
+
+export function clearValidation(formElement, validationConfig) {
+    const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
+    const buttonElement = formElement.querySelector(validationConfig.submitButtonSelector);
+    
+    inputList.forEach((inputElement) => {
+        hideInputError(inputElement, validationConfig, formElement);
+    });
+    
+    buttonElement.disabled = true;
+    buttonElement.classList.add(validationConfig.inactiveButtonClass);
 }
